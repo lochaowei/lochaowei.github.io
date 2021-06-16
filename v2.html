@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>reCAPTCHA demo: Explicit render for multiple widgets</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="index.css">    
+    <script type="text/javascript">
+    
+      var verifyCallback = function(response) {
+        //alert(response);
+        document.getElementById("my-result").innerText = "";
+		    console.log(response)
+        if (response && typeof response === 'string') {
+          (async()=>{
+            await callGoogle(response);
+          })();
+        }
+
+      };
+
+      var v2 = "https://keithtestv2.azurewebsites.net/api/GoogleCatpchaV2?code=/ji0FDMDFyhaIcCS1fEEOEdgzyqueHa/LhWCYg7XguCzh3TGthslYg==&token=";
+      var v3 = "https://keithtestv2.azurewebsites.net/api/GoogleCaptchaV3?code=CMm0o/asRY/67CXkTi/copLbcpjFiDExkRwax4YvatnVTtq3o9lQ8A==&token=";
+      var callGoogle = async function(resp) {
+        let data = {};
+        let gg = await fetch(v2 + resp )
+        let resText = await gg.text();
+        document.getElementById("my-result").innerText = resText;
+      }
+      var onloadCallback = function() {
+        grecaptcha.render('example_v2', {
+          'sitekey' : '6LcrTgQbAAAAAB6ig8BiCACE94Uugs_FWguO0jpU',
+          'callback' : verifyCallback,
+          'theme' : 'light'
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <br>
+    <!-- POSTs back to the page's URL upon submit with a g-recaptcha-response POST parameter. -->
+    <main>
+      <h1>reCAPTCHA v2 checkbox Demo</h1>
+    <form action="?" method="POST">
+      <div id="demo">
+        User Alias: <input type="text" name="user" id="form-user" placeholder="User Name" required><br>
+        Email: <input type="text" name="mail" id="form-mail" placeholder="Email" required><br>
+        Password: <input type="password" name="pwd" id="form-pwd" placeholder="Password" required><br>
+        <label for="textarea">Verify result:</label>
+        <div id="my-result" ></div><br>
+      </div>
+      <div id="example_v2"></div>
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
+    </script>
+    </main>
+  </body>
+</html>
