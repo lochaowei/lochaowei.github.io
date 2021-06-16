@@ -26,15 +26,6 @@
         let resText = await gg.text();
         document.getElementById("my-result").innerText = resText;
       }
-      var widgetId1;
-      var widgetId2;
-      // var onloadCallback = function() {
-      //   grecaptcha.render('example_v3', {
-      //     'sitekey' : '6Lfe8xwbAAAAAHNcdg8ilm_ewOFd6nUZ_xlzAw6V',
-      //     'callback' : verifyCallback,
-      //     'theme' : 'light'
-      //   });
-      // };
     </script>
   </head>
   <body>
@@ -63,6 +54,7 @@
     <script>
       function onSubmit(token) {
         //document.getElementById("demo-form").submit();
+	document.getElementById("my-result").innerText = "";
         verifyCallback(token);
       }
     </script>    
